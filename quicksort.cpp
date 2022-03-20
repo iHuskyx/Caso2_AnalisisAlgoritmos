@@ -74,6 +74,14 @@ vector<float> tasaOrden(vector<float> orden, int n) {
     return dif;
 }
 
+vector<float> tasaOrden(vector<int> orden, int n) {
+    vector<float> dif;
+    for (int i = 0; i < n-1; i++) {
+        dif.push_back(float(orden[i+1] / orden[i]));
+    }
+    return dif;
+}
+
 int main() {
     int size0 = 100;
     int size1 = 500;
@@ -97,62 +105,114 @@ int main() {
     fillArray(arr6, size6);
     fillArray(arr7, size7);
 
-    double time0, time1, time2, time3, time4, time5, time6, time7;  //Duracion en ns para cada array
+    double time0, time1, time2, time3, time4, time5, time6, time7; //Duracion en ns para cada array log test
+    //Duracion en ns para cada array n^2 test
+    double timeCuad0, timeCuad1, timeCuad2, timeCuad3, timeCuad4, timeCuad5, timeCuad6, timeCuad7;
     int ntime = 8;  // Cantidad de variables para medir tiempo
-    vector<double> tiempos; // Vector para almacenar los tiempos
+    vector<double> tiemposLog; // Vector para almacenar los tiempos para quicksort logaritmico
+    vector<double> tiemposN2; // Vector para almacenar los tiempos para quicksort cuadratico
 
 //Medir el tiempo y hacer quicksort para cada array. Se almacena el tiempo en su variable correspondiente
-    steady_clock::time_point start = steady_clock::now();
+    steady_clock::time_point start = steady_clock::now();   //Quicksort logaritmico
     quicksort(arr0, 0, size0);
     steady_clock::time_point end = steady_clock::now();
     time0 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr0, 0, size0);
+    end = steady_clock::now();
+    timeCuad0 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr1, 0, size1);
     end = steady_clock::now();
     time1 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr1, 0, size1);
+    end = steady_clock::now();
+    timeCuad1 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr2, 0, size2);
     end = steady_clock::now();
     time2 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr2, 0, size2);
+    end = steady_clock::now();
+    timeCuad2 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr3, 0, size3);
     end = steady_clock::now();
     time3 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr3, 0, size3);
+    end = steady_clock::now();
+    timeCuad3 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr4, 0, size4);
     end = steady_clock::now();
     time4 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr4, 0, size4);
+    end = steady_clock::now();
+    timeCuad4 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr5, 0, size5);
     end = steady_clock::now();
     time5 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr5, 0, size5);
+    end = steady_clock::now();
+    timeCuad5 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr6, 0, size6);
     end = steady_clock::now();
     time6 = timeDiffns(start, end);
 
-    start = steady_clock::now();
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr6, 0, size6);
+    end = steady_clock::now();
+    timeCuad6 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //Quicksort logaritmico
     quicksort(arr7, 0, size7);
     end = steady_clock::now();
     time7 = timeDiffns(start, end);
 
-    tiempos.push_back(time0);
-    tiempos.push_back(time1);
-    tiempos.push_back(time2);
-    tiempos.push_back(time3);
-    tiempos.push_back(time4);
-    tiempos.push_back(time5);
-    tiempos.push_back(time6);
-    tiempos.push_back(time7);
+    start = steady_clock::now();    //Quicksort cuadratico
+    quicksort(arr7, 0, size7);
+    end = steady_clock::now();
+    timeCuad7 = timeDiffns(start, end);
 
-    // tasaTiempo retorna un vector con la tasa de crecimiento para los tiempos
-    vector<float> resultadoTiempos = tasaTiempos(tiempos, ntime);
+    tiemposLog.push_back(time0);
+    tiemposLog.push_back(time1);
+    tiemposLog.push_back(time2);
+    tiemposLog.push_back(time3);
+    tiemposLog.push_back(time4);
+    tiemposLog.push_back(time5);
+    tiemposLog.push_back(time6);
+    tiemposLog.push_back(time7);
+
+    tiemposN2.push_back(timeCuad0);
+    tiemposN2.push_back(timeCuad1);
+    tiemposN2.push_back(timeCuad2);
+    tiemposN2.push_back(timeCuad3);
+    tiemposN2.push_back(timeCuad4);
+    tiemposN2.push_back(timeCuad5);
+    tiemposN2.push_back(timeCuad6);
+    tiemposN2.push_back(timeCuad7);
+
+    // tasaTiempo retorna un vector con la tasa de crecimiento para los tiemposLog
+    vector<float> resultTiempoLog = tasaTiempos(tiemposLog, ntime);
 
     // Variables para almacenar el logaritmo base 2 de los sizes de los arrays
     float log_test0, log_test1, log_test2, log_test3, log_test4, log_test5, log_test6, log_test7;
@@ -178,11 +238,12 @@ int main() {
     vector<float> resultTasalog = tasaOrden(tasaLog, nlog);
 
     // Imprimir resultados
-    cout << "Se hara quicksort en 8 arrays de numeros enteros de size 100,500,1000,1500,2000,2500,3000 y 3500" << endl;
+    cout << "Se hara quicksort con pivote fijo en 8 arrays de numeros enteros de size 100,500,1000,1500,2000,2500,3000 y 3500" << endl;
     cout << endl;
+    cout << "------------- Prueba para quicksort logaritmico -------------" << endl;
     cout << "Tiempo medido en nanosegundos para cada array" << endl;
     for (int i = 0; i < ntime; i++) {
-        cout << "T" << i << " = " << tiempos[i] << endl;
+        cout << "T" << i << " = " << tiemposLog[i] << endl;
     }
 
     cout << endl;
@@ -195,7 +256,7 @@ int main() {
     cout << endl;
     cout << "Tasa de crecimiento en los tiempos" << endl;
     for (int i = 0; i < ntime-1; i++) {
-        cout<<"T"<<i+1<<"/"<<"T"<<i<<" = "<<resultadoTiempos[i]<<endl;
+        cout<<"T"<<i+1<<"/"<<"T"<<i<<" = "<<resultTiempoLog[i]<<endl;
     }
 
     cout << endl;
@@ -205,9 +266,8 @@ int main() {
     }
     // Calcular un promedio entre ambas tasas de crecimiento
     float aux = 0;  // Auxiliar para ir sumando la diferencia entre laas tasas
-
     for (int i = 0; i < nlog-1; i++) {
-        aux += abs(resultTasalog[i] - resultadoTiempos[i+1]); //agregar a aux la diferencia entre ambas tasas
+        aux += abs(resultTasalog[i] - resultTiempoLog[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
     float promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
@@ -216,7 +276,82 @@ int main() {
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
     cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden logaritmico" << endl;
+    cout << "Ademas, se puede apreciar que las tasas llegan a punto de estabilizacion" << endl;
+    cout << "lo cual coincide con el comportamiento de una funcion logaritmica" << endl;
+    cout << endl;
 
+    // ----------------- Demostracion para quicksort cuadratico ------------------------
+    cout << "------------- Prueba para quicksort cuadratico -------------" << endl;
+    vector<float> resultTiempoN2 = tasaTiempos(tiemposN2, ntime);
+
+    int cuad_test0, cuad_test1, cuad_test2, cuad_test3, cuad_test4, cuad_test5, cuad_test6, cuad_test7;
+    vector<int> pows2print; // Vector para almacenar los resultados de la elevacion al cuadrado e imprimirlos
+    vector<float> pows2;
+    cuad_test0 = pow(size0, 2);
+    cuad_test1 = pow(size1, 2);
+    cuad_test2 = pow(size2, 2);
+    cuad_test3 = pow(size3, 2);
+    cuad_test4 = pow(size4, 2);
+    cuad_test5 = pow(size5, 2);
+    cuad_test6 = pow(size6, 2);
+    cuad_test7 = pow(size7, 2);
+    pows2print.push_back(cuad_test0);
+    pows2print.push_back(cuad_test1);
+    pows2print.push_back(cuad_test2);
+    pows2print.push_back(cuad_test3);
+    pows2print.push_back(cuad_test4);
+    pows2print.push_back(cuad_test5);
+    pows2print.push_back(cuad_test6);
+    pows2print.push_back(cuad_test7);
+    pows2.push_back(cuad_test0);
+    pows2.push_back(cuad_test1);
+    pows2.push_back(cuad_test2);
+    pows2.push_back(cuad_test3);
+    pows2.push_back(cuad_test4);
+    pows2.push_back(cuad_test5);
+    pows2.push_back(cuad_test6);
+    pows2.push_back(cuad_test7);
+
+    // tasaOrden retorna un vector con la tasa de crecimiento para las pows2
+    vector<float> resultTasaN2 = tasaOrden(pows2, nlog); //se reutiliza nlog porque es la misma cant de elementos
+
+    cout << "Tiempo medido en nanosegundos para cada array" << endl;
+    for (int i = 0; i < ntime; i++) {
+        cout << "T" << i << " = " << tiemposN2[i] << endl;
+    }
+
+    cout << endl;
+    cout << "n^2 de " << size0 << "," << size1 << "," << size2 << "," << size3 << "," << size4 <<
+    "," << size5 << "," << size6 << "," << size7 << endl;
+    for (int i = 0; i < nlog; i++) {
+        cout << "N" << i << " = " << pows2print[i] << endl;
+    }
+
+    cout << endl;
+    cout << "Tasa de crecimiento en los tiempos" << endl;
+    for (int i = 0; i < ntime-1; i++) {
+        cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoN2[i] << endl;
+    }
+
+    cout << endl;
+    cout << "Tasa de crecimiento en las pows2" << endl;
+    for (int i = 0; i < nlog-1; i++) {
+        cout << "N" << i+1 << "/" << "N" << i << " = " << resultTasaN2[i] << endl;
+    }
+
+    // Calcular un promedio entre ambas tasas de crecimiento
+    aux = 0;  // Auxiliar para ir sumando la diferencia entre laas tasas
+    for (int i = 0; i < nlog-1; i++) {
+        aux += abs(resultTasaN2[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
+    }
+
+    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    if (promedio < 0)
+        promedio *= -1; //esto es porque el abs no parecia funcionar
+    cout << endl;
+    cout << "Margen de error entre las tasas = " << promedio << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden cuadratico" << endl;
+    cout << endl;
 
 //    start = steady_clock::now();
 //    quicksort(arr1, 0, cant-1);
@@ -226,8 +361,8 @@ int main() {
 
 
 //    cout << "[ ";
-//    for (int i = 0; i < 1000; i++) {
-//        cout << arr1[i] << " ";
+//    for (int i = 0; i < size0; i++) {
+//        cout << arr0[i] << " ";
 //    }
 //    cout << "]" << endl;
 
