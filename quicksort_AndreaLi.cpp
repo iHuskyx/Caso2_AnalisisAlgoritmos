@@ -2,7 +2,6 @@
    Estudiante: Andrea María Li Hernández - 2021028783
 */
 #include <iostream>
-#include <iterator>
 #include <vector>
 #include <random>
 #include <algorithm>
@@ -12,6 +11,7 @@
 using namespace std::chrono;
 using namespace std;
 
+// Elección del pivote fijo, se llama en quicksort
 int particion(int arr[], int down, int up) {
     int pivot = down, i = down;
     int j = i + 1;
@@ -27,6 +27,7 @@ int particion(int arr[], int down, int up) {
     return i;
 }
 
+// Elección del pivote random, retorna a particion una vez que se implementa el pivote aleatorio
 int particionRandom(int arr[], int down, int up) {
     srand(time(0));
     int randomPivot = down + rand() % (up - down);
@@ -34,6 +35,7 @@ int particionRandom(int arr[], int down, int up) {
     return particion(arr, down, up);
 }
 
+// Quicksort que llama a particion para utilizar el pivote fijo
 void quicksort(int arr[], int down, int up) {
     if (down < up) {
         int pivot = particion(arr, down, up);
@@ -42,6 +44,7 @@ void quicksort(int arr[], int down, int up) {
     }
 }
 
+// Quicksort que llama a particionRandom para utilizar el pivote aleatorio
 void quicksortRandom(int arr[], int down, int up) {
     if (down < up) {
         int pivot = particionRandom(arr, down, up);
@@ -50,6 +53,7 @@ void quicksortRandom(int arr[], int down, int up) {
     }
 }
 
+// Función para llenar arrays con números aleatorios
 void fillArray(int arr[], int size) {
     srand(time(0));
     for (int i = 0; i < size; i++) {
@@ -57,10 +61,12 @@ void fillArray(int arr[], int size) {
     }
 }
 
+// Función para obtener la diferencia entre el tiempo de inicio y tiempo de fin
 double timeDiffns(steady_clock::time_point start, steady_clock::time_point end) {
     return duration_cast<nanoseconds> (end - start).count();
 }
 
+// Función para obtener la tasa de crecimiento según los tiempos
 vector<float> tasaTiempos(vector<double> tiempos, int n) {
     vector<float> dif;
     for (int i = 0; i < n-1; i++) {
@@ -69,6 +75,9 @@ vector<float> tasaTiempos(vector<double> tiempos, int n) {
     return dif;
 }
 
+/* Función para obtener la tasa de crecimiento entre los números según el orden que se está analizando.
+    Por ejm: si es orden cuadratico, se calculará la tasa de los n^2
+*/
 vector<float> tasaOrden(vector<float> orden, int n) {
     vector<float> dif;
     for (int i = 0; i < n-1; i++) {
@@ -76,7 +85,7 @@ vector<float> tasaOrden(vector<float> orden, int n) {
     }
     return dif;
 }
-
+// Sobrecarga de la función anterior para tratar con números enteros
 vector<float> tasaOrden(vector<int> orden, int n) {
     vector<float> dif;
     for (int i = 0; i < n-1; i++) {
@@ -86,7 +95,7 @@ vector<float> tasaOrden(vector<int> orden, int n) {
 }
 
 int main() {
-    int size0 = 100;
+    int size0 = 100;    // Tamaño de los arrays con los que se harán las pruebas
     int size1 = 500;
     int size2 = 1000;
     int size3 = 1500;
@@ -95,7 +104,7 @@ int main() {
     int size6 = 3000;
     int size7 = 3500;
 
-    int nlog = 8;
+    int cant_arrays = 8;    // Cantidad de arrays con los que se harán las pruebas
     int arr0[size0], arr1[size1], arr2[size2], arr3[size3], arr4[size4], arr5[size5], arr6[size6], arr7[size7];
 
     // Llenar los arrays con numeros enteros aleatorios
@@ -109,9 +118,10 @@ int main() {
     fillArray(arr7, size7);
 
     double time0, time1, time2, time3, time4, time5, time6, time7; //Duracion en ns para cada array log test
+
     //Duracion en ns para cada array n^2 test
     double timeCuad0, timeCuad1, timeCuad2, timeCuad3, timeCuad4, timeCuad5, timeCuad6, timeCuad7;
-    int ntime = 8;  // Cantidad de variables para medir tiempo
+
     vector<double> tiemposLog; // Vector para almacenar los tiempos para quicksort logaritmico
     vector<double> tiemposN2; // Vector para almacenar los tiempos para quicksort cuadratico
 
@@ -215,7 +225,7 @@ int main() {
     tiemposN2.push_back(timeCuad7);
 
     // tasaTiempo retorna un vector con la tasa de crecimiento para los tiemposLog
-    vector<float> resultTiempoLog = tasaTiempos(tiemposLog, ntime);
+    vector<float> resultTiempoLog = tasaTiempos(tiemposLog, cant_arrays);
 
     // Variables para almacenar el logaritmo base 2 de los sizes de los arrays
     float log_test0, log_test1, log_test2, log_test3, log_test4, log_test5, log_test6, log_test7;
@@ -238,44 +248,46 @@ int main() {
     tasaLog.push_back(log_test7);
 
     // tasaOrden retorna un vector con la tasa de crecimiento para los logaritmos
-    vector<float> resultTasalog = tasaOrden(tasaLog, nlog);
+    vector<float> resultTasalog = tasaOrden(tasaLog, cant_arrays);
 
     // Imprimir resultados
     cout << "Se hara quicksort con pivote fijo en 8 arrays de numeros enteros de size 100,500,1000,1500,2000,2500,3000 y 3500" << endl;
     cout << endl;
-    cout << "------------- Prueba para quicksort logaritmico -------------" << endl;
+    cout << "------------- Prueba para quicksort logaritmico con pivote fijo -------------" << endl;
     cout << "Tiempo medido en nanosegundos para cada array" << endl;
-    for (int i = 0; i < ntime; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "T" << i << " = " << tiemposLog[i] << endl;
     }
 
     cout << endl;
     cout << "Log2 de " << size0 << "," << size1 << "," << size2 << "," << size3 << "," << size4 <<
     "," << size5 << "," << size6 << "," << size7 << endl;
-    for (int i = 0; i < nlog; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "L" << i << " = " << tasaLog[i] << endl;
     }
 
     cout << endl;
     cout << "Tasa de crecimiento en los tiempos" << endl;
-    for (int i = 0; i < ntime-1; i++) {
-        cout<<"T"<<i+1<<"/"<<"T"<<i<<" = "<<resultTiempoLog[i]<<endl;
+    for (int i = 0; i < cant_arrays-1; i++) {
+        cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoLog[i] << endl;
     }
 
     cout << endl;
     cout << "Tasa de crecimiento en los logaritmos" << endl;
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         cout << "L" << i+1 << "/" << "L"<<i<< " = " << resultTasalog[i] << endl;
     }
+
     // Calcular un promedio entre ambas tasas de crecimiento
     float aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         aux += abs(resultTasalog[i] - resultTiempoLog[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
-    float promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    float promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1; //esto es porque el abs no parecia funcionar
+
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
     cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden logaritmico" << endl;
@@ -284,8 +296,8 @@ int main() {
     cout << endl;
 
     // ----------------- Demostracion para quicksort cuadratico ------------------------
-    cout << "------------- Prueba para quicksort cuadratico -------------" << endl;
-    vector<float> resultTiempoN2 = tasaTiempos(tiemposN2, ntime);
+    cout << "------------- Prueba para quicksort cuadratico con pivote fijo -------------" << endl;
+    vector<float> resultTiempoN2 = tasaTiempos(tiemposN2, cant_arrays);
 
     int cuad_test0, cuad_test1, cuad_test2, cuad_test3, cuad_test4, cuad_test5, cuad_test6, cuad_test7;
     vector<int> pows2print; // Vector para almacenar los resultados de la elevacion al cuadrado e imprimirlos
@@ -316,39 +328,39 @@ int main() {
     pows2.push_back(cuad_test7);
 
     // tasaOrden retorna un vector con la tasa de crecimiento para las pows2
-    vector<float> resultTasaN2 = tasaOrden(pows2, nlog); //se reutiliza nlog porque es la misma cant de elementos
+    vector<float> resultTasaN2 = tasaOrden(pows2, cant_arrays); //se reutiliza cant_arrays porque es la misma cant de elementos
 
     cout << "Tiempo medido en nanosegundos para cada array" << endl;
-    for (int i = 0; i < ntime; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "T" << i << " = " << tiemposN2[i] << endl;
     }
 
     cout << endl;
     cout << "n^2 de " << size0 << "," << size1 << "," << size2 << "," << size3 << "," << size4 <<
     "," << size5 << "," << size6 << "," << size7 << endl;
-    for (int i = 0; i < nlog; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "N" << i << " = " << pows2print[i] << endl;
     }
 
     cout << endl;
     cout << "Tasa de crecimiento en los tiempos" << endl;
-    for (int i = 0; i < ntime-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoN2[i] << endl;
     }
 
     cout << endl;
     cout << "Tasa de crecimiento en las pows2" << endl;
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         cout << "N" << i+1 << "/" << "N" << i << " = " << resultTasaN2[i] << endl;
     }
 
     // Calcular un promedio entre ambas tasas de crecimiento
     aux = 0;  // Auxiliar para ir sumando la diferencia entre laas tasas
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         aux += abs(resultTasaN2[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
-    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1; //esto es porque el abs no parecia funcionar
     cout << endl;
@@ -360,7 +372,7 @@ int main() {
     cout << "Se hara quicksort con pivote random en 8 arrays de numeros enteros de size 100,500,1000,1500,2000,2500,3000 y 3500" << endl;
     cout << endl;
     cout << "------------ Prueba para quicksort logaritmico con pivote random ---------" << endl;
-    // Llenar los arrays con numeros enteros aleatorios
+    // Llenar los arrays con numeros enteros aleatorios nuevamente
     fillArray(arr0, size0);
     fillArray(arr1, size1);
     fillArray(arr2, size2);
@@ -370,7 +382,7 @@ int main() {
     fillArray(arr6, size6);
     fillArray(arr7, size7);
 
-    start = steady_clock::now();   //Quicksort logaritmico
+    start = steady_clock::now();   //quicksortRandom logaritmico
     quicksortRandom(arr0, 0, size0);
     end = steady_clock::now();
     time0 = timeDiffns(start, end);
@@ -471,14 +483,14 @@ int main() {
     tiemposN2.push_back(timeCuad7);
 
     cout << "Tiempo medido en nanosegundos para cada array" << endl;
-    for (int i = 0; i < ntime; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "T" << i << " = " << tiemposLog[i] << endl;
     }
 
-    resultTiempoLog = tasaTiempos(tiemposLog, ntime);
+    resultTiempoLog = tasaTiempos(tiemposLog, cant_arrays);
     cout << endl;
     cout << "Tasa de crecimiento en los tiempos" << endl;
-    for (int i = 0; i < ntime-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoLog[i] << endl;
     }
 
@@ -486,47 +498,45 @@ int main() {
     cout << "**Se utiliza la misma tasa de crecimiento de logaritmos mostrada anteriormente porque trabajamos con la misma cantidad de elementos" << endl;
 
     aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         aux += abs(resultTasalog[i] - resultTiempoLog[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
-    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1;
 
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
-    cout << "Como se puede observar, con un pivote random los tiempos poseen un valor mayor y aunque el " << endl;
-    cout << "margen de error entre las tasas es mayor al margen obtenido con un pivote fijo, este se sigue aproximando" << endl;
-    cout << "a 0, por lo tanto, se puede concluir que al tener un pivote" <<
-    " random sigue siendo de orden logaritmico" << endl;
+    cout << "Como se puede observar, con un pivote random los tiempos poseen un valor mayor, sin embargo, el pivote " << endl;
+    cout << "se sigue aproximando a 0, por lo tanto, se puede concluir que al tener un pivote" << endl;
+    cout << "random sigue siendo de orden logaritmico" << endl;
     cout << endl;
 
     cout << "------------ Prueba para quicksort cuadratico con pivote random ---------" << endl;
     cout << "Tiempo medido en nanosegundos para cada array" << endl;
-    for (int i = 0; i < ntime; i++) {
+    for (int i = 0; i < cant_arrays; i++) {
         cout << "T" << i << " = " << tiemposN2[i] << endl;
     }
 
-    resultTiempoN2 = tasaTiempos(tiemposN2, ntime);
+    resultTiempoN2 = tasaTiempos(tiemposN2, cant_arrays);
     cout << endl;
     cout << "Tasa de crecimiento en los tiempos" << endl;
-    for (int i = 0; i < ntime-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoN2[i] << endl;
     }
 
     aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         aux += abs(resultTasaN2[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
-    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1;
 
     cout << endl;
     cout << "Con el quicksort cuadratico y pivote random, se da un caso particular" << endl;
-    cout << "Observe que la tasa de crecimiento de los tiempos posee un comportamiento muy similar al de una tasa logaritmica" << endl;
     cout << "**Se utiliza la misma tasa de crecimiento de n^2 mostrada anteriormente porque trabajamos con la misma cantidad de elementos" << endl;
     cout << "Margen de error entre las tasas de n^2 y los tiempos de quicksort cuadratico = " << promedio << endl;
     cout << "El margen ya no se aproxima a 0, por lo que puede ser que ya no sea cuadratico" << endl;
@@ -534,16 +544,19 @@ int main() {
     cout << "Calculemos el margen de error entre las tasas de logaritmos y la tasa de los tiempos que tenemos ahora" << endl;
 
     aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
-    for (int i = 0; i < nlog-1; i++) {
+    for (int i = 0; i < cant_arrays-1; i++) {
         aux += abs(resultTasalog[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
-    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1;
     cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promedio << endl;
     cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort cuadratico posee un orden logaritmico al utilizar" <<
     " un pivote random" << endl;
 
+    cout << endl;
+    cout << "Fin del programa" << endl;
+    cout << endl;
     return 0;
 }
