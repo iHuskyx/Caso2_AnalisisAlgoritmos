@@ -1,3 +1,6 @@
+/* Caso 2 - Analisis de algoritmos
+   Estudiante: Andrea María Li Hernández - 2021028783
+*/
 #include <iostream>
 #include <iterator>
 #include <vector>
@@ -265,7 +268,7 @@ int main() {
         cout << "L" << i+1 << "/" << "L"<<i<< " = " << resultTasalog[i] << endl;
     }
     // Calcular un promedio entre ambas tasas de crecimiento
-    float aux = 0;  // Auxiliar para ir sumando la diferencia entre laas tasas
+    float aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
     for (int i = 0; i < nlog-1; i++) {
         aux += abs(resultTasalog[i] - resultTiempoLog[i]); //agregar a aux la diferencia entre ambas tasas
     }
@@ -353,18 +356,194 @@ int main() {
     cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden cuadratico" << endl;
     cout << endl;
 
-//    start = steady_clock::now();
-//    quicksort(arr1, 0, cant-1);
-//    end = steady_clock::now();
-//    cout << "Duracion para quicksort logaritmico con pivote random = " <<
-//    duration_cast<nanoseconds> (end - start).count() << " ns" << endl;
+    // --------------- Prueba pivote random para quicksort logaritmico ------------------
+    cout << "Se hara quicksort con pivote random en 8 arrays de numeros enteros de size 100,500,1000,1500,2000,2500,3000 y 3500" << endl;
+    cout << endl;
+    cout << "------------ Prueba para quicksort logaritmico con pivote random ---------" << endl;
+    // Llenar los arrays con numeros enteros aleatorios
+    fillArray(arr0, size0);
+    fillArray(arr1, size1);
+    fillArray(arr2, size2);
+    fillArray(arr3, size3);
+    fillArray(arr4, size4);
+    fillArray(arr5, size5);
+    fillArray(arr6, size6);
+    fillArray(arr7, size7);
 
+    start = steady_clock::now();   //Quicksort logaritmico
+    quicksortRandom(arr0, 0, size0);
+    end = steady_clock::now();
+    time0 = timeDiffns(start, end);
 
-//    cout << "[ ";
-//    for (int i = 0; i < size0; i++) {
-//        cout << arr0[i] << " ";
-//    }
-//    cout << "]" << endl;
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr0, 0, size0);
+    end = steady_clock::now();
+    timeCuad0 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr1, 0, size1);
+    end = steady_clock::now();
+    time1 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr1, 0, size1);
+    end = steady_clock::now();
+    timeCuad1 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr2, 0, size2);
+    end = steady_clock::now();
+    time2 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr2, 0, size2);
+    end = steady_clock::now();
+    timeCuad2 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr3, 0, size3);
+    end = steady_clock::now();
+    time3 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr3, 0, size3);
+    end = steady_clock::now();
+    timeCuad3 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr4, 0, size4);
+    end = steady_clock::now();
+    time4 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr4, 0, size4);
+    end = steady_clock::now();
+    timeCuad4 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr5, 0, size5);
+    end = steady_clock::now();
+    time5 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr5, 0, size5);
+    end = steady_clock::now();
+    timeCuad5 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr6, 0, size6);
+    end = steady_clock::now();
+    time6 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr6, 0, size6);
+    end = steady_clock::now();
+    timeCuad6 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom logaritmico
+    quicksortRandom(arr7, 0, size7);
+    end = steady_clock::now();
+    time7 = timeDiffns(start, end);
+
+    start = steady_clock::now();    //quicksortRandom cuadratico
+    quicksortRandom(arr7, 0, size7);
+    end = steady_clock::now();
+    timeCuad7 = timeDiffns(start, end);
+
+    tiemposLog.clear();
+    tiemposN2.clear();
+    tiemposLog.push_back(time0);
+    tiemposLog.push_back(time1);
+    tiemposLog.push_back(time2);
+    tiemposLog.push_back(time3);
+    tiemposLog.push_back(time4);
+    tiemposLog.push_back(time5);
+    tiemposLog.push_back(time6);
+    tiemposLog.push_back(time7);
+
+    tiemposN2.push_back(timeCuad0);
+    tiemposN2.push_back(timeCuad1);
+    tiemposN2.push_back(timeCuad2);
+    tiemposN2.push_back(timeCuad3);
+    tiemposN2.push_back(timeCuad4);
+    tiemposN2.push_back(timeCuad5);
+    tiemposN2.push_back(timeCuad6);
+    tiemposN2.push_back(timeCuad7);
+
+    cout << "Tiempo medido en nanosegundos para cada array" << endl;
+    for (int i = 0; i < ntime; i++) {
+        cout << "T" << i << " = " << tiemposLog[i] << endl;
+    }
+
+    resultTiempoLog = tasaTiempos(tiemposLog, ntime);
+    cout << endl;
+    cout << "Tasa de crecimiento en los tiempos" << endl;
+    for (int i = 0; i < ntime-1; i++) {
+        cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoLog[i] << endl;
+    }
+
+    cout << endl;
+    cout << "**Se utiliza la misma tasa de crecimiento de logaritmos mostrada anteriormente porque trabajamos con la misma cantidad de elementos" << endl;
+
+    aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
+    for (int i = 0; i < nlog-1; i++) {
+        aux += abs(resultTasalog[i] - resultTiempoLog[i]); //agregar a aux la diferencia entre ambas tasas
+    }
+
+    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    if (promedio < 0)
+        promedio *= -1;
+
+    cout << endl;
+    cout << "Margen de error entre las tasas = " << promedio << endl;
+    cout << "Como se puede observar, con un pivote random los tiempos poseen un valor mayor y aunque el " << endl;
+    cout << "margen de error entre las tasas es mayor al margen obtenido con un pivote fijo, este se sigue aproximando" << endl;
+    cout << "a 0, por lo tanto, se puede concluir que al tener un pivote" <<
+    " random sigue siendo de orden logaritmico" << endl;
+    cout << endl;
+
+    cout << "------------ Prueba para quicksort cuadratico con pivote random ---------" << endl;
+    cout << "Tiempo medido en nanosegundos para cada array" << endl;
+    for (int i = 0; i < ntime; i++) {
+        cout << "T" << i << " = " << tiemposN2[i] << endl;
+    }
+
+    resultTiempoN2 = tasaTiempos(tiemposN2, ntime);
+    cout << endl;
+    cout << "Tasa de crecimiento en los tiempos" << endl;
+    for (int i = 0; i < ntime-1; i++) {
+        cout << "T" << i+1 << "/" << "T" << i << " = " << resultTiempoN2[i] << endl;
+    }
+
+    aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
+    for (int i = 0; i < nlog-1; i++) {
+        aux += abs(resultTasaN2[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
+    }
+
+    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    if (promedio < 0)
+        promedio *= -1;
+
+    cout << endl;
+    cout << "Con el quicksort cuadratico y pivote random, se da un caso particular" << endl;
+    cout << "Observe que la tasa de crecimiento de los tiempos posee un comportamiento muy similar al de una tasa logaritmica" << endl;
+    cout << "**Se utiliza la misma tasa de crecimiento de n^2 mostrada anteriormente porque trabajamos con la misma cantidad de elementos" << endl;
+    cout << "Margen de error entre las tasas de n^2 y los tiempos de quicksort cuadratico = " << promedio << endl;
+    cout << "El margen ya no se aproxima a 0, por lo que puede ser que ya no sea cuadratico" << endl;
+    cout << endl;
+    cout << "Calculemos el margen de error entre las tasas de logaritmos y la tasa de los tiempos que tenemos ahora" << endl;
+
+    aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
+    for (int i = 0; i < nlog-1; i++) {
+        aux += abs(resultTasalog[i] - resultTiempoN2[i]); //agregar a aux la diferencia entre ambas tasas
+    }
+
+    promedio = aux/nlog-1; //Dividir la suma entre la cantidad de resultados en las tasas
+    if (promedio < 0)
+        promedio *= -1;
+    cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promedio << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort cuadratico posee un orden logaritmico al utilizar" <<
+    " un pivote random" << endl;
 
     return 0;
 }
