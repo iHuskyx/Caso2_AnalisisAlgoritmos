@@ -1,5 +1,5 @@
-output: linkedlist trie
-	g++ main.cpp -o output
+freetext: linkedlist trie
+	g++ main.cpp -o freetext
 
 trie: trienode
 	g++ trie.h -o trie
