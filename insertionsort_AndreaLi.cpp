@@ -286,7 +286,7 @@ int main() {
         promedio *= -1; //esto es porque el abs no parecia funcionar
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
-    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el insertion_sort tiene un orden cuadratico" << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el insertion_sort tiene un tiempo algoritmico cuadratico" << endl;
     cout << endl;
 
     // ----------------- Demostracion para insertion_sort lineal ------------------------
@@ -344,7 +344,7 @@ int main() {
         promedio *= -1; //esto es porque el abs no parecia funcionar
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
-    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el insertion_sort tiene un orden lineal" << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el insertion_sort tiene un tiempo algoritmico lineal" << endl;
     cout << endl;
     cout << "Fin del programa" << endl;
     return 0;

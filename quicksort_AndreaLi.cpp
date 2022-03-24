@@ -291,7 +291,7 @@ int main() {
 
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
-    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden logaritmico" << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un tiempo algoritmico logaritmico" << endl;
     cout << "Ademas, se puede apreciar que las tasas llegan a punto de estabilizacion" << endl;
     cout << "lo cual coincide con el comportamiento de una funcion logaritmica" << endl;
     cout << endl;
@@ -366,7 +366,7 @@ int main() {
         promedio *= -1; //esto es porque el abs no parecia funcionar
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;
-    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un orden cuadratico" << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort tiene un tiempo algoritmico cuadratico" << endl;
     cout << endl;
 
     // --------------- Prueba pivote random para quicksort logaritmico ------------------
@@ -511,7 +511,7 @@ int main() {
     cout << "Margen de error entre las tasas = " << promedio << endl;
     cout << "Como se puede observar, con un pivote random los tiempos poseen un valor mayor, sin embargo, el pivote " << endl;
     cout << "se sigue aproximando a 0, por lo tanto, se puede concluir que al tener un pivote" << endl;
-    cout << "random sigue siendo de orden logaritmico" << endl;
+    cout << "random sigue siendo de tiempo algoritmico logaritmico" << endl;
     cout << endl;
 
     cout << "------------ Prueba para quicksort cuadratico con pivote random ---------" << endl;
@@ -552,9 +552,9 @@ int main() {
     promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1;
-    string promediostr = to_string(promedio);
-    cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promediostr << endl;
-    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort cuadratico posee un orden logaritmico al utilizar" <<
+
+    cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promedio << endl;
+    cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort cuadratico posee un tiempo algoritmico logaritmico al utilizar" <<
     " un pivote random" << endl;
 
     cout << endl;
