@@ -275,7 +275,7 @@ int main() {
     cout << endl;
     cout << "Tasa de crecimiento en los logaritmos" << endl;
     for (int i = 0; i < cant_arrays-1; i++) {
-        cout << "L" << i+1 << "/" << "L"<<i<< " = " << resultTasalog[i] << endl;
+        cout << "L" << i+1 << "/" << "L" << i << " = " << resultTasalog[i] << endl;
     }
 
     // Calcular un promedio entre ambas tasas de crecimiento
