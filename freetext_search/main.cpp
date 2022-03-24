@@ -112,6 +112,9 @@ int main() {
     cout << "*********************************" << endl;
     cout << "*      Free text search         *" << endl;
     cout << "*********************************" << endl;
+    cout << "Se va a hacer free text search por indexacion, utilizando un arbol trie" << endl;
+    cout << "Un momento para cargar el texto..." << endl;
+    cout << endl;
     setlocale(LC_ALL, "spanish"); // Establecer idioma español
     SetConsoleCP(1252); // Entrada de texto con acentos del idioma español
     SetConsoleOutputCP(1252); // Salida de texto con acentos del idioma español
