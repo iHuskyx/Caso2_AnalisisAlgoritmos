@@ -12,7 +12,6 @@
 #include <list>
 #include <windows.h> //se utiliza para cambiar el idioma de stdin y stdout a español
 
-#include "avltreedictionary.h"
 #include "LinkedList.h"
 #include "trie.h"
 
@@ -399,12 +398,12 @@ int main() {
     // Calcular un promedio entre ambas tasas de crecimiento
     float aux = 0;  // Auxiliar para ir sumando la diferencia entre las tasas
     for (int i = 0; i < 4-1; i++) {
-        aux += abs(resultNumeros[i] - resultTiempos[i]); //agregar a aux la diferencia entre ambas tasas
+        aux += (resultNumeros[i] - resultTiempos[i]); //agregar a aux la diferencia entre ambas tasas
     }
 
     float promedio = aux/4-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
-        promedio *= -1; //esto es porque el abs no parecia funcionar
+        promedio *= -1;
 
     cout << endl;
     cout << "Margen de error entre las tasas = " << promedio << endl;

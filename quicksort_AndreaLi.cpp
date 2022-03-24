@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <math.h>
 #include <chrono>
+#include <string>
 
 using namespace std::chrono;
 using namespace std;
@@ -62,7 +63,7 @@ void fillArray(int arr[], int size) {
 }
 
 // Función para obtener la diferencia entre el tiempo de inicio y tiempo de fin
-double timeDiffns(steady_clock::time_point start, steady_clock::time_point end) {
+float timeDiffns(steady_clock::time_point start, steady_clock::time_point end) {
     return duration_cast<nanoseconds> (end - start).count();
 }
 
@@ -117,10 +118,10 @@ int main() {
     fillArray(arr6, size6);
     fillArray(arr7, size7);
 
-    double time0, time1, time2, time3, time4, time5, time6, time7; //Duracion en ns para cada array log test
+    double time0 = 0, time1 = 0, time2 = 0, time3 = 0, time4 = 0, time5 = 0, time6 = 0, time7 = 0; //Duracion en ns para cada array log test
 
     //Duracion en ns para cada array n^2 test
-    double timeCuad0, timeCuad1, timeCuad2, timeCuad3, timeCuad4, timeCuad5, timeCuad6, timeCuad7;
+    double timeCuad0 = 0, timeCuad1 = 0, timeCuad2 = 0, timeCuad3 = 0, timeCuad4 = 0, timeCuad5 = 0, timeCuad6 = 0, timeCuad7 = 0;
 
     vector<double> tiemposLog; // Vector para almacenar los tiempos para quicksort logaritmico
     vector<double> tiemposN2; // Vector para almacenar los tiempos para quicksort cuadratico
@@ -551,7 +552,8 @@ int main() {
     promedio = aux/cant_arrays-1; //Dividir la suma entre la cantidad de resultados en las tasas
     if (promedio < 0)
         promedio *= -1;
-    cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promedio << endl;
+    string promediostr = to_string(promedio);
+    cout << "Margen de error entre las tasas de log y los tiempos de quicksort cuadratico = " << promediostr << endl;
     cout << "El margen se aproxima a 0, por lo tanto, se puede concluir que el quicksort cuadratico posee un orden logaritmico al utilizar" <<
     " un pivote random" << endl;
 

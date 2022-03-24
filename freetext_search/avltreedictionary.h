@@ -6,7 +6,6 @@
 #include "KVPair.h"
 #include "LinkedList.h"
 
-using std::vector;
 using std::runtime_error;
 using std::cout;
 using std::endl;
@@ -60,26 +59,6 @@ public:
         KVPair<K, V> p(key); //crear par con la llave enviada por parámetro
         return elements.contains(p); //retornar el booleano resultado del contains del AVLTree
     }
-//
-//    void agregarLinea(K key, int line) {
-//        KVPair<K, V> p(key); //crear un par con la llave enviada por parámetro
-//        p = elements.find(p); //guardar el par que se mandó a buscar
-//        p.value.push_back(line);
-//    }
-//
-//    vector<int>* getLineas(K key) {
-//        KVPair<K, V> p(key); //crear un par con la llave enviada por parámetro
-//        p = elements.find(p); //guardar el par que se mandó a buscar
-//        vector<int>* lineas = p.value;
-//        return lineas;
-//    }
-//
-//    int getCantApariciones(K key) {
-//        KVPair<K, V> p(key); //crear un par con la llave enviada por parámetro
-//        p = elements.find(p); //guardar el par que se mandó a buscar
-//        int cant = p.value.size();
-//        return cant;
-//    }
 
     LinkedList<K>* getKeys() {
         LinkedList<K> *keys = new LinkedList<K>(); //puntero a lista con las llaves
